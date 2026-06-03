@@ -24,7 +24,7 @@ public class RegistrationTest {
     @Test(priority = 1)
     public void userRegistrationTest() {
 
-        Map<String, Object> payload = new HashMap<>();
+      Map<String, Object>  payload = new HashMap<>();
 
         payload.put("email", FakerUtils.getEmail());
         payload.put("password", FakerUtils.getPassword());
