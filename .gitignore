@@ -14,3 +14,5 @@ allure-results/
 # OS files
 .DS_Store
 Thumbs.db
+
+tokens.json
