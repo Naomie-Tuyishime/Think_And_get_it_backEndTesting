@@ -16,7 +16,6 @@ public class LoginTest {
     public void verifyLoginAPI() {
 
         File file = new File("src/test/resources/LoginCridentials.json");
-
         given()
                 .spec(getRequestSpec())
                 .body(file)

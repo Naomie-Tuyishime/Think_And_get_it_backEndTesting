@@ -26,6 +26,7 @@ public class SpecBuilder {
                 .expectContentType(JSON).
                 log(LogDetail.ALL)
                 .build();
+
     }
 
 
