@@ -6,7 +6,7 @@ public class FakerUtils {
 
     private static final Faker faker = new Faker();
     public static String getEmail() {
-        return faker.regexify("[a-z]{6,10}") + faker.number().digits(3) + "@example.com";
+         return faker.regexify("[a-z]{6,10}") + faker.number().digits(3) + "@example.com";
     }
 
     public static String getPassword() {

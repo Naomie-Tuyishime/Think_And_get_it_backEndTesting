@@ -18,7 +18,7 @@ public class UpdateUserProfile {
     public void userProfileTest() {
 
 
-        String token = getToken("register");
+        String token = getToken("login");
 
         Map<String, Object> payload = new HashMap<>();
 
