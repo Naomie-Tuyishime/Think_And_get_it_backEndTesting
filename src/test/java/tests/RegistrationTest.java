@@ -4,22 +4,17 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import utils.FakerUtils;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static constants.StatusCode.CODE_201;
 import static io.restassured.RestAssured.given;
 import static routes.Routes.USER_REGISTER;
-import static routes.Routes.VERIFY_EMAIL;
 import static spec.SpecBuilder.getRequestSpec;
 import static spec.SpecBuilder.getResponseSpec;
-import static utils.TokenManager.saveTokens;
-import static utils.TokenManager.getToken;
+import static utils.TokenManager.setToken;
 
 public class RegistrationTest {
-
-    File file = new File("src/test/resources/registrationCridentials.json");
 
     @Test(priority = 1)
     public void userRegistrationTest() {
@@ -44,10 +39,11 @@ public class RegistrationTest {
                         .extract()
                         .response();
 
-        String token = response.path("data.token");
-        String refreshToken = response.path("data.refreshToken");
-
-        saveTokens("register", token, refreshToken);
+        setToken(
+                response.path("data.token"),
+                response.path("data.refreshToken"),
+                response.path("data.expiresIn")
+        );
 
         System.out.println("REGISTER RESPONSE: " + response.asPrettyString());
     }
