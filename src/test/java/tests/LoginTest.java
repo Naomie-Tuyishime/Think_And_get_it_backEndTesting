@@ -15,6 +15,7 @@ public class LoginTest {
     @Test
     public void verifyLoginAPI() {
 
+
         File file = new File("src/test/resources/LoginCridentials.json");
         given()
                 .spec(getRequestSpec())

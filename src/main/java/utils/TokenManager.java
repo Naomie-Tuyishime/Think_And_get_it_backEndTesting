@@ -1,73 +1,42 @@
 package utils;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import java.io.File;
-import java.io.IOException;
+import java.time.Instant;
 
 public class TokenManager {
 
-    private static final String FILE_PATH = "src/test/resources/tokens.json";
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static String accessToken;
+    private static String refreshToken;
+    private static Instant expiryTime;
 
+    public synchronized static void setToken(String token, String refresh, Integer expiresInSeconds) {
+        accessToken = token;
+        refreshToken = refresh;
 
-    public static void saveTokens(String type, String token, String refreshToken) {
-        try {
-            File file = new File(FILE_PATH);
-
-            ObjectNode root;
-
-            if (file.exists() && file.length() > 0) {
-                root = (ObjectNode) mapper.readTree(file);
-            } else {
-                root = mapper.createObjectNode();
-            }
-
-            ObjectNode tokenNode = mapper.createObjectNode();
-            tokenNode.put("token", token);
-            tokenNode.put("refreshToken", refreshToken);
-
-            root.set(type, tokenNode);
-
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, root);
-
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to save tokens", e);
+        if (expiresInSeconds != null) {
+            expiryTime = Instant.now().plusSeconds(expiresInSeconds - 60);
+        } else {
+            expiryTime = Instant.now().plusSeconds(600);
         }
     }
+
     public static String getToken(String type) {
-        try {
-            File file = new File(FILE_PATH);
-
-            if (!file.exists()) {
-                throw new RuntimeException("Token file not found!");
-            }
-
-            JsonNode root = mapper.readTree(file);
-
-            return root.path(type).path("token").asText();
-
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read token", e);
+        if (accessToken == null || isExpired()) {
+            throw new RuntimeException("Token not initialized. Call login/register test first.");
         }
+        return accessToken;
     }
 
-    public static String getRefreshToken(String type) {
-        try {
-            File file = new File(FILE_PATH);
+    public static String getRefreshToken() {
+        return refreshToken;
+    }
 
-            if (!file.exists()) {
-                throw new RuntimeException("Token file not found!");
-            }
+    private static boolean isExpired() {
+        return expiryTime == null || Instant.now().isAfter(expiryTime);
+    }
 
-            JsonNode root = mapper.readTree(file);
-
-            return root.path(type).path("refreshToken").asText();
-
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read refresh token", e);
-        }
+    public static void clearToken() {
+        accessToken = null;
+        refreshToken = null;
+        expiryTime = null;
     }
 }
