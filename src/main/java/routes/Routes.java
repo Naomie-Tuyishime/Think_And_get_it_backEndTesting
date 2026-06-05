@@ -12,5 +12,6 @@ public class Routes {
     public static final String REFRESH_ACCESS_TOKEN = "auth/refresh";
     public static final String  USER_PROFILE = "users/profile";
     public static final String USER_CHANGE_PASSWORD = "users/change-password";
+    public static final String UsersAddress = "users/addresses";
 
 }

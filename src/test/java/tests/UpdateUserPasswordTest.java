@@ -21,8 +21,8 @@ public class UpdateUserPasswordTest {
 
         Map<String, Object> payload = new HashMap<>();
 
-        payload.put("currentPassword", "McyPass@123");
-        payload.put("newPassword", "McyPass@123st");
+        payload.put("currentPassword", "McyPass@123st");
+        payload.put("newPassword", "McyPass@123stt");
 
         given()
                 .spec(getRequestSpec())
