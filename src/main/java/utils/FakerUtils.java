@@ -4,13 +4,44 @@ import com.github.javafaker.Faker;
 
 public class FakerUtils {
 
+    private static final Faker faker = new Faker();
     public static String getEmail() {
-        Faker faker = new Faker();
-        return faker.regexify("[A-Z][a-z]{6,10}");
+         return faker.regexify("[a-z]{6,10}") + faker.number().digits(3) + "@example.com";
     }
 
+    public static String getPassword() {
+        return faker.regexify("[A-Z][a-z]{5,8}") + "@123";
+    }
 
+    public static String getFirstName() {
+        return faker.regexify("[A-Z][a-z]{4,10}");
+    }
 
+    public static String getLastName() {
+        return faker.regexify("[A-Z][a-z]{5,12}");
+    }
 
+    public static String getPhone() {
+        return "+2507" + faker.number().digits(8);
 
+    }
+    public static String getStreet() {
+        return faker.address().streetAddress();
+    }
+
+    public static String getCity() {
+        return faker.address().city();
+    }
+
+    public static String getState() {
+        return faker.address().state();
+    }
+
+    public static String getCountry() {
+        return faker.address().country();
+    }
+
+    public static String getPostalCode() {
+        return faker.address().zipCode();
+    }
 }
