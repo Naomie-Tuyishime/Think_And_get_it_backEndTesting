@@ -1,30 +1,28 @@
-package tests;
+package tests.userProfile;
 
 import org.testng.annotations.Test;
-import utils.FakerUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static routes.Routes.USER_PROFILE;
+
+import static routes.Routes.USER_CHANGE_PASSWORD;
 import static spec.SpecBuilder.getRequestSpec;
 import static spec.SpecBuilder.getResponseSpec;
 import static utils.TokenManager.getToken;
 
-public class UpdateUserProfile {
+public class UpdateUserPasswordTest {
 
     @Test
-    public void userProfileTest() {
-
+    public void updatePasswordTest() {
 
         String token = getToken("login");
 
         Map<String, Object> payload = new HashMap<>();
 
-        payload.put("firstName", FakerUtils.getFirstName());
-        payload.put("lastName", FakerUtils.getLastName());
-        payload.put("phone", FakerUtils.getPhone());
+        payload.put("currentPassword", "McyPass@123st");
+        payload.put("newPassword", "McyPass@123stt");
 
         given()
                 .spec(getRequestSpec())
@@ -32,7 +30,8 @@ public class UpdateUserProfile {
                 .body(payload)
 
                 .when()
-                .put(USER_PROFILE)
+                .put(USER_CHANGE_PASSWORD)
+
                 .then()
                 .spec(getResponseSpec())
                 .statusCode(200);

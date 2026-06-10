@@ -13,5 +13,8 @@ public class Routes {
     public static final String  USER_PROFILE = "users/profile";
     public static final String USER_CHANGE_PASSWORD = "users/change-password";
     public static final String UsersAddress = "users/addresses";
+    public static final String CATEGORIES = "/categories";
+    public static final String SINGLECATEGORY = "/categories/{slug}";
+    public static final String SINGLEPRODUCTID= "categories/{id}";
 
 }

@@ -1,4 +1,4 @@
-package tests;
+package tests.auth;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -11,11 +11,9 @@ import java.util.Map;
 import static constants.StatusCode.CODE_201;
 import static io.restassured.RestAssured.given;
 import static routes.Routes.USER_REGISTER;
-import static routes.Routes.VERIFY_EMAIL;
 import static spec.SpecBuilder.getRequestSpec;
 import static spec.SpecBuilder.getResponseSpec;
 import static utils.TokenManager.saveTokens;
-import static utils.TokenManager.getToken;
 
 public class RegistrationTest {
 

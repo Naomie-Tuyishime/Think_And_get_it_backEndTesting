@@ -1,4 +1,4 @@
-package tests;
+package tests.auth;
 
 import constants.StatusCode;
 import org.testng.annotations.Test;

@@ -25,6 +25,9 @@ public class FakerUtils {
         return "+2507" + faker.number().digits(8);
 
     }
+    public static String getDescription(){
+        return faker.regexify("[A-Z][a-z]{13,40}");
+    }
     public static String getStreet() {
         return faker.address().streetAddress();
     }
@@ -43,5 +46,9 @@ public class FakerUtils {
 
     public static String getPostalCode() {
         return faker.address().zipCode();
+    }
+    public static   String getId(){
+        return faker.regexify("[A-Z][a-z]{5,12}");
+
     }
 }
