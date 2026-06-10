@@ -1,58 +1,52 @@
-package tests;
+package tests.auth;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import utils.FakerUtils;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static constants.StatusCode.CODE_201;
 import static io.restassured.RestAssured.given;
 import static routes.Routes.USER_REGISTER;
-import static routes.Routes.VERIFY_EMAIL;
 import static spec.SpecBuilder.getRequestSpec;
 import static spec.SpecBuilder.getResponseSpec;
 import static utils.TokenManager.saveTokens;
-import static utils.TokenManager.getToken;
 
 public class RegistrationTest {
 
     File file = new File("src/test/resources/registrationCridentials.json");
 
-    @Test
-    public void UserRegistrationTest() {
+    @Test(priority = 1)
+    public void userRegistrationTest() {
+
+      Map<String, Object>  payload = new HashMap<>();
+
+        payload.put("email", FakerUtils.getEmail());
+        payload.put("password", FakerUtils.getPassword());
+        payload.put("firstName", FakerUtils.getFirstName());
+        payload.put("lastName", FakerUtils.getLastName());
+        payload.put("phone", FakerUtils.getPhone());
 
         Response response =
                 given()
                         .spec(getRequestSpec())
-                        .body(file)
+                        .body(payload)
                         .when()
                         .post(USER_REGISTER)
                         .then()
                         .spec(getResponseSpec())
+                        .statusCode(CODE_201.getCode())
                         .extract()
                         .response();
-
 
         String token = response.path("data.token");
         String refreshToken = response.path("data.refreshToken");
 
-        System.out.println("FULL RESPONSE: " + response.asString());
-
         saveTokens("register", token, refreshToken);
-    }
 
-    @Test
-    public void verifyEmailAddress() {
-        String token = getToken("register");
-        System.out.println("TOKEN = " + token);
-        given()
-                .spec(getRequestSpec())
-                .pathParam("token", token)
-                .when()
-                .get(VERIFY_EMAIL)
-                .then()
-                .spec(getResponseSpec())
-              .statusCode(CODE_201.getCode());
-
+        System.out.println("REGISTER RESPONSE: " + response.asPrettyString());
     }
 }
