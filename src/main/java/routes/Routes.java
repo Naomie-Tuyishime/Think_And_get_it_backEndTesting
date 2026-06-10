@@ -16,5 +16,6 @@ public class Routes {
     public static final String CATEGORIES = "/categories";
     public static final String SINGLECATEGORY = "/categories/{slug}";
     public static final String SINGLEPRODUCTID= "categories/{id}";
+    public static final String PRODUCTS = "/products";
 
 }
