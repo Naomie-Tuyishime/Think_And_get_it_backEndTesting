@@ -20,6 +20,10 @@ public class FakerUtils {
     public static String getLastName() {
         return faker.regexify("[A-Z][a-z]{5,12}");
     }
+    public static String  getProductName(){
+        return faker.regexify("[A-Z][a-z]{5,12}");
+    }
+
 
     public static String getPhone() {
         return "+2507" + faker.number().digits(8);
@@ -50,5 +54,8 @@ public class FakerUtils {
     public static   String getId(){
         return faker.regexify("[A-Z][a-z]{5,12}");
 
+    }
+    public static Integer price() {
+        return faker.number().numberBetween(10, 100);
     }
 }
