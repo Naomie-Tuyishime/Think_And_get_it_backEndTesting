@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static payload.ProductPayload.updateProduct;
 import static routes.Routes.*;
 import static spec.SpecBuilder.getRequestSpec;
@@ -18,20 +19,20 @@ public class UpdateProduct {
     public void updateProductTest (){
         String token = getToken("login");
         var payload = updateProduct(PRODUCT_ID);
-        Response response =
-                given()
+            Response response =    given()
                         .spec(getRequestSpec())
                         .pathParam("id", SINGLEPRODUCT)
                         .header("Authorization", "Bearer " + token)
                         .body(payload)
                         .when()
                         .put(PRODUCT)
-                        .then().spec(getResponseSpec())
-                        .statusCode(StatusCode.CODE_200.getCode())
-                        .extract()
-                        .response();
-        Assert.assertNotNull(response.jsonPath().get("data.id"));
-        System.out.println(" Updated product id " + response.jsonPath().get("data.id"));
+                        .then().spec(getResponseSpec()).statusCode(StatusCode.CODE_200.getCode()).extract().response();
+
+
+        Assert.assertEquals(response.jsonPath().getString("message"), "Product updated");
+
+
+        Assert.assertEquals(response.jsonPath().get("data.name"), payload.get("name"));
 
 
     }
@@ -43,7 +44,7 @@ public class UpdateProduct {
         badPayload.put("price", NEGATIVENUMBERS);
         badPayload.put("flashSalePrice",  NEGATIVENUMBERS);
 
-        given()
+        Response response =given()
                 .spec(getRequestSpec())
                 .pathParam("id", SINGLEPRODUCT)
                 .header("Authorization", "Bearer " + token)
@@ -51,14 +52,18 @@ public class UpdateProduct {
                 .when()
                 .put(PRODUCT)
                 .then().spec(getResponseSpec())
-                .statusCode(StatusCode.CODE_400.getCode());
+                .statusCode(StatusCode.CODE_400.getCode()).
+                extract().response();
+
+        Assert.assertEquals(response.jsonPath().getString("message"), "Route /api/v1/products/b1320cf8-e781-4ed0-ade6-85f0a16cdc08 not found");
+
     }
     @Test
     public void updateProductWithWrongHttpMethodTest() {
         String token = getToken("login");
         var payload = updateProduct(SINGLEPRODUCT);
 
-        given()
+        Response response =given()
                 .spec(getRequestSpec())
                 .pathParam("id", SINGLEPRODUCT)
                 .header("Authorization", "Bearer " + token)
@@ -66,8 +71,10 @@ public class UpdateProduct {
                 .when()
 
                 .post(PRODUCT )
-                .then()
-                .statusCode(StatusCode.CODE_404.getCode());
+                .then().spec(getResponseSpec())
+                .statusCode(StatusCode.CODE_404.getCode()).
+                extract().response();
+        Assert.assertEquals(response.jsonPath().getString("message"), "Route /api/v1/products/" + SINGLEPRODUCT + " not found");
     }
 
 }

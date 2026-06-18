@@ -51,4 +51,11 @@ public class FakerUtils {
         return faker.regexify("[A-Z][a-z]{5,12}");
 
     }
+    public static String getProductName() {
+        return faker.commerce().productName();
+    }
+
+    public static int price() {
+        return faker.number().numberBetween(10, 1000);
+    }
 }
