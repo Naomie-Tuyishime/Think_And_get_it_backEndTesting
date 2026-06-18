@@ -30,7 +30,6 @@ public class UpdateProduct {
                         .statusCode(StatusCode.CODE_200.getCode())
                         .extract()
                         .response();
-
         Assert.assertNotNull(response.jsonPath().get("data.id"));
         System.out.println(" Updated product id " + response.jsonPath().get("data.id"));
 
