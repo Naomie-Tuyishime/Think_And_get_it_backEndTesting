@@ -17,7 +17,7 @@ import static utils.TokenManager.getToken;
 public class CreatingProduct {
 
     @Test
-    public void createProductTest() {
+    public static  String createProductTest() {
 
         String token = getToken("login");
 
@@ -50,7 +50,8 @@ public class CreatingProduct {
                 response.jsonPath().getList("data.variants").size() > 0
         );
 
-
+        String productId = response.jsonPath().getString("data.id");
         System.out.println("Created Product ID: " + response.jsonPath().get("data.id"));
+        return productId;
     }
 }
