@@ -34,6 +34,7 @@ public class UpdateProduct {
         Assert.assertNotNull(response.jsonPath().get("data.id"));
         System.out.println(" Updated product id " + response.jsonPath().get("data.id"));
 
+
     }
     @Test
     public void updateProductWithNegativePriceTest() {
