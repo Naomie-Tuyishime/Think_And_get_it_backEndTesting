@@ -17,5 +17,13 @@ public class Routes {
     public static final String SINGLECATEGORY = "/categories/{slug}";
     public static final String SINGLEPRODUCTID= "categories/{id}";
     public static final String PRODUCTS = "/products";
+   public static final String DEFAULT_SIZE = "M";
+    public static final String DEFAULT_COLOR = "Black";
+    public static final String DEFAULT_COLOR_HEX = "#000000";
+   public static final String PRODUCT_ID = "ddb77290-34ef-4e20-a19b-febca2c5c9d1";
+   public static final String SINGLEPRODUCT ="b1320cf8-e781-4ed0-ade6-85f0a16cdc08";
+   public static final String PRODUCT = "products/{id}";
+   public static final Integer NEGATIVENUMBERS=-23;
+
 
 }
