@@ -8,20 +8,18 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static payload.ProductPayload.createProduct;
 import static routes.Routes.PRODUCTS;
-import static routes.Routes.PRODUCT_ID;
 import static spec.SpecBuilder.getRequestSpec;
-import static spec.SpecBuilder.getResponseSpec;
 import static utils.TokenManager.getToken;
 
 
 public class CreatingProduct {
 
     @Test
-    public static  String createProductTest() {
+    public void createProductTest() {
 
         String token = getToken("login");
 
-        var payload = createProduct( PRODUCT_ID);
+        var payload = createProduct("ddb77290-34ef-4e20-a19b-febca2c5c9d1");
         Response response =
                 given()
                         .spec(getRequestSpec())
@@ -29,7 +27,7 @@ public class CreatingProduct {
                         .body(payload)
                         .when()
                         .post(PRODUCTS)
-                        .then().spec(getResponseSpec())
+                        .then()
                         .statusCode(StatusCode.CODE_201.getCode())
                         .extract()
                         .response();
@@ -50,8 +48,7 @@ public class CreatingProduct {
                 response.jsonPath().getList("data.variants").size() > 0
         );
 
-        String productId = response.jsonPath().getString("data.id");
+
         System.out.println("Created Product ID: " + response.jsonPath().get("data.id"));
-        return productId;
     }
 }

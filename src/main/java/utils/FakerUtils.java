@@ -51,4 +51,13 @@ public class FakerUtils {
         return faker.regexify("[A-Z][a-z]{5,12}");
 
     }
+    public static String getProductName() {
+        // Generates realistic product names like "Ergonomic Desk" or "Durable Smartphone"
+        return faker.commerce().productName();
+    }
+
+    public static int price() {
+        // Generates a random numeric price value between 10 and 1000
+        return faker.number().numberBetween(10, 1000);
+    }
 }
