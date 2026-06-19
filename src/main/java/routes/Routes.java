@@ -24,6 +24,7 @@ public class Routes {
    public static final String SINGLEPRODUCT ="b1320cf8-e781-4ed0-ade6-85f0a16cdc08";
    public static final String PRODUCT = "products/{id}";
    public static final Integer NEGATIVENUMBERS=-23;
+    public static final String fakeProductId = "9999999999999";
 
 
 }
