@@ -37,6 +37,7 @@ public class TokenManager {
             throw new RuntimeException("Failed to save tokens", e);
         }
     }
+
     public static String getToken(String type) {
         try {
             File file = new File(FILE_PATH);

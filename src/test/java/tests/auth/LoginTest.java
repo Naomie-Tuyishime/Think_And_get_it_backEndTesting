@@ -1,4 +1,4 @@
-package tests;
+package tests.auth;
 
 import constants.StatusCode;
 import org.testng.annotations.Test;
@@ -14,6 +14,7 @@ import static spec.SpecBuilder.getResponseSpec;
 public class LoginTest {
     @Test
     public void verifyLoginAPI() {
+
 
         File file = new File("src/test/resources/LoginCridentials.json");
         given()

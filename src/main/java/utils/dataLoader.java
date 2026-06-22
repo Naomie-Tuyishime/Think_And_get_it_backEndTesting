@@ -3,23 +3,24 @@ package utils;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-public class ConfigLoader {
-
+public class dataLoader {
     private static Properties properties;
 
     static {
         try {
-            FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
+            FileInputStream fis = new FileInputStream("src/main/resources/data.properties");
             properties = new Properties();
             properties.load(fis);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load config file");
         }
-    }
-
-
-    public static String getBaseUrl() {
-        return properties.getProperty("base.url");
-    }
 
     }
+    public static String getProductSlug (){
+        return properties.getProperty("SLUG");
+    }
+    public static String getProductId (){
+        return properties.getProperty ("id");
+    }
+
+}
